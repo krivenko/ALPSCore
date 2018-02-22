@@ -86,7 +86,7 @@ protected:
         MPI_Datatype dtype_tag = alps::mpi::get_mpi_datatype(T());
 
         // In-place requires special value for sendbuf, but only on root
-        const void *sendbuf = am_root() ? MPI_IN_PLACE : data.data();
+        void *sendbuf = am_root() ? MPI_IN_PLACE : data.data();
         mpi::checked(MPI_Reduce(sendbuf, data.data(), data.size(), dtype_tag,
                                 MPI_SUM, root_, comm_));
     }
